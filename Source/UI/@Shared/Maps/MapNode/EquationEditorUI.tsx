@@ -1,53 +1,72 @@
-import { GetErrorMessagesUnderElement, Clone } from 'js-vextensions';
-import { CheckBox, Column, Pre, Row, RowLR, TextArea, TextInput } from 'react-vcomponents';
-import { BaseComponent, GetDOM } from 'react-vextensions';
-import { Equation } from '../../../../Store/firebase/nodes/@Equation';
+import {TransformRatingForContext} from "../../../../Store/firebase/nodeRatings";
+import {Assert} from "js-vextensions";
+import {BaseComponent, RenderSource} from "react-vextensions";
+import {Pre, RowLR, TextArea_AutoSize} from "react-vcomponents";
+import {Term, TermType, Term_nameFormat, Term_disambiguationFormat} from "../../../../Store/firebase/terms/@Term";
+import {Column} from "react-vcomponents";
+import {Row} from "react-vcomponents";
+import {TextInput} from "react-vcomponents";
+import Moment from "moment";
+import {GetUser} from "../../../../Store/firebase/users";
+import {User} from "Store/firebase/users/@User";
+import {Connect} from "../../../../Frame/Database/FirebaseConnect";
+import {GetEntries} from "../../../../Frame/General/Enums";
+import {Select} from "react-vcomponents";
+import {CheckBox} from "react-vcomponents";
+import {ScrollView} from "react-vscrollview";
+import {Button} from "react-vcomponents";
+import TermComponent from "../../../../Store/firebase/termComponents/@TermComponent";
+import {GetNiceNameForTermType} from "../../../../UI/Content/TermsUI";
+import {GetTermVariantNumber} from "../../../../Store/firebase/terms";
+import {InfoButton} from "../../../../Frame/ReactComponents/InfoButton";
+import {Equation} from "../../../../Store/firebase/nodes/@Equation";
+ import {GetErrorMessagesUnderElement} from "js-vextensions";
 
 type Props = {baseData: Equation, creating: boolean, editing?: boolean, style?, onChange?: (newData: Equation)=>void};
-// & Partial<{creator: User, variantNumber: number}>;
-/* @Connect((state, {baseData, creating}: Props)=>({
+	//& Partial<{creator: User, variantNumber: number}>;
+/*@Connect((state, {baseData, creating}: Props)=>({
 	creator: !creating && GetUser(baseData.creator),
 	variantNumber: !creating && GetTermVariantNumber(baseData),
-})) */
-export class EquationEditorUI extends BaseComponent<Props, {newData: Equation}> {
+}))*/
+export default class EquationEditorUI extends BaseComponent<Props, {newData: Equation}> {
 	ComponentWillMountOrReceiveProps(props, forMount) {
-		if (forMount || props.baseData != this.props.baseData) { // if base-data changed
-			this.SetState({ newData: Clone(props.baseData) });
-		}
+		if (forMount || props.baseData != this.props.baseData) // if base-data changed
+			this.SetState({newData: Clone(props.baseData)});
 	}
-
+	
 	render() {
-		const { creating, editing, style, onChange } = this.props;
-		const { newData } = this.state;
-		const Change = (_) => {
-			if (onChange) { onChange(this.GetNewData()); }
+		let {creating, editing, style, onChange} = this.props;
+		let {newData} = this.state;
+		let Change = _=> {
+			if (onChange)
+				onChange(this.GetNewData());
 			this.Update();
 		};
 
-		const splitAt = 100; // , width = 600;
+		let splitAt = 100; //, width = 600;
 		return (
 			<Column style={style}>
 				<RowLR splitAt={splitAt}>
 					<Pre>LaTeX: </Pre>
-					<CheckBox enabled={creating || editing} style={{ width: '100%' }}
-						checked={newData.latex} onChange={(val) => Change(val ? newData.latex = true : delete newData.latex)}/>
+					<CheckBox enabled={creating || editing} style={{width: "100%"}}
+						checked={newData.latex} onChange={val=>Change(val ? newData.latex = true : delete newData.latex)}/>
 				</RowLR>
 				<RowLR mt={5} splitAt={splitAt}>
 					<Pre>Text: </Pre>
-					<TextArea required enabled={creating || editing} allowLineBreaks={newData.latex} autoSize={true} style={{ width: '100%' }}
-						value={newData.text} onChange={(val) => Change(newData.text = val)}/>
+					<TextArea_AutoSize required enabled={creating || editing} allowLineBreaks={newData.latex} style={{width: "100%"}}
+						value={newData.text} onChange={val=>Change(newData.text = val)}/>
 				</RowLR>
-				<Row mt={5} style={{ display: 'flex', alignItems: 'center' }}>
+				<Row mt={5} style={{display: "flex", alignItems: "center"}}>
 					<Pre>Step in series: </Pre>
 					<CheckBox enabled={editing} checked={newData.isStep}
-						// onChange={val=>Change(val ? newLinkData.isStep = true : delete newLinkData.isStep)}/>
-						onChange={(val) => Change(newData.isStep = val || null)}/>
+						//onChange={val=>Change(val ? newLinkData.isStep = true : delete newLinkData.isStep)}/>
+						onChange={val=>Change(newData.isStep = val || null)}/>
 				</Row>
 				{newData.isStep &&
 					<RowLR mt={5} splitAt={splitAt}>
 						<Pre>Explanation: </Pre>
-						<TextInput enabled={creating || editing} style={{ width: '100%' }}
-							value={newData.explanation} onChange={(val) => Change(newData.explanation = val)}/>
+						<TextInput enabled={creating || editing} style={{width: "100%"}}
+							value={newData.explanation} onChange={val=>Change(newData.explanation = val)}/>
 					</RowLR>}
 			</Column>
 		);
@@ -57,8 +76,8 @@ export class EquationEditorUI extends BaseComponent<Props, {newData: Equation}> 
 	}
 
 	GetNewData() {
-		const { newData } = this.state;
-		const result = Clone(newData) as Equation;
+		let {newData} = this.state;
+		let result = Clone(newData) as Equation;
 		if (!result.isStep) {
 			delete result.explanation;
 		}

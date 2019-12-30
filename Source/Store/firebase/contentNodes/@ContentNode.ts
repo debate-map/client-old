@@ -1,21 +1,19 @@
-import { Source } from 'Store/firebase/contentNodes/@SourceChain';
-import { AddSchema } from 'vwebapp-framework';
-import { SourceChain } from './@SourceChain';
+import {GetValues_ForSchema} from "../../../Frame/General/Enums";
+import {SourceChain} from "./@SourceChain";
+import {Source} from "Store/firebase/contentNodes/@SourceChain";
 
 // todo: probably rename to "Quote"
 export class ContentNode {
 	constructor() {
-		this.sourceChains = [
-			{ sources: [new Source()] },
-		];
+		this.sourceChains = [[new Source()]];
 	}
-	content = '';
+	content = "";
 	sourceChains: SourceChain[];
 }
-AddSchema('ContentNode', {
+AddSchema({
 	properties: {
-		content: { type: 'string' },
-		sourceChains: { items: { $ref: 'SourceChain' } },
+		content: {type: "string"},
+		sourceChains: {items: {$ref: "SourceChain"}},
 	},
-	required: ['content', 'sourceChains'],
-});
+	required: ["content", "sourceChains"],
+}, "ContentNode");

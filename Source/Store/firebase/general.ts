@@ -1,11 +1,11 @@
 export interface GeneralData {
-	/* lastImageID: number;
+	lastImageID: number;
 	lastLayerID: number;
 	lastMapID: number;
-	lastNodeID: string;
+	lastNodeID: number;
 	lastNodeRevisionID: number;
 	lastTermID: number;
 	lastTermComponentID: number;
 	lastTimelineID: number;
-	lastTimelineStepID: number; */
+	lastTimelineStepID: number;
 }

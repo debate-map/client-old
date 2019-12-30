@@ -1,15 +1,18 @@
-import { CachedTransform, IsNaN } from 'js-vextensions';
-import { GetDoc, GetDocs, StoreAccessor } from 'mobx-firelink';
-import { Image } from './images/@Image';
+import {GetData, GetDataAsync} from "../../Frame/Database/DatabaseHelpers";
+import {Term} from "./terms/@Term";
+import {CachedTransform} from "js-vextensions";
+import {Image} from "./images/@Image";
 
-export const GetImage = StoreAccessor((s) => (id: string) => {
+export function GetImage(id: number) {
 	if (id == null || IsNaN(id)) return null;
-	return GetDoc({}, (a) => a.images.get(id));
-});
-/* export async function GetImageAsync(id: string) {
+	return GetData("images", id) as Image;
+}
+/*export async function GetImageAsync(id: number) {
 	return await GetDataAsync(`images/${id}`) as Image;
-} */
+}*/
 
-export const GetImages = StoreAccessor((s) => (): Image[] => {
-	return GetDocs({}, (a) => a.images);
-});
+export function GetImages(): Image[] {
+	let imagesMap = GetData("images");
+	return CachedTransform("GetImages", [], imagesMap, ()=>imagesMap ? imagesMap.VValues(true) : []);
+	//return CachedTransform("GetImages", {}, imagesMap, ()=>imagesMap ? imagesMap.VKeys(true).map(id=>GetImage(parseInt(id))) : []);
+}

@@ -1,35 +1,38 @@
-import { MapEdit, UserEdit } from 'Server/CommandMacros';
-import { AddSchema, AssertValidate } from 'vwebapp-framework';
-import { Command_Old, GetAsync, Command, AssertV } from 'mobx-firelink';
-import { GetNode } from 'Store/firebase/nodes';
-import { MapNode } from '../../Store/firebase/nodes/@MapNode';
+import { MapEdit, UserEdit } from "Server/CommandMacros";
+import { GetDataAsync } from "../../Frame/Database/DatabaseHelpers";
+import { MapNode } from "../../Store/firebase/nodes/@MapNode";
+import { Command } from "../Command";
 
-AddSchema('SetNodeIsMultiPremiseArgument_payload', {
+AddSchema({
 	properties: {
-		mapID: { type: 'string' },
-		nodeID: { type: 'string' },
-		multiPremiseArgument: { type: 'boolean' },
+		mapID: {type: "number"},
+		nodeID: {type: "number"},
+		multiPremiseArgument: {type: "boolean"},
 	},
-	required: ['nodeID', 'multiPremiseArgument'],
-});
+	required: ["nodeID", "multiPremiseArgument"],
+}, "SetNodeIsMultiPremiseArgument_payload");
 
 @MapEdit
 @UserEdit
-export class SetNodeIsMultiPremiseArgument extends Command<{mapID?: number, nodeID: string, multiPremiseArgument: boolean}, {}> {
-	oldNodeData: MapNode;
-	newNodeData: MapNode;
-	Validate() {
-		const { mapID, nodeID, multiPremiseArgument } = this.payload;
-		this.oldNodeData = GetNode(nodeID);
-		AssertV(this.oldNodeData, 'oldNodeData is null.');
-		this.newNodeData = { ...this.oldNodeData, ...{ multiPremiseArgument } };
-		AssertValidate('SetNodeIsMultiPremiseArgument_payload', this.payload, 'Payload invalid');
-		AssertValidate('MapNode', this.newNodeData, 'New node-data invalid');
+export default class SetNodeIsMultiPremiseArgument extends Command<{mapID?: number, nodeID: number, multiPremiseArgument: boolean}> {
+	Validate_Early() {
+		AssertValidate("SetNodeIsMultiPremiseArgument_payload", this.payload, `Payload invalid`);
 	}
 
+	oldNodeData: MapNode;
+	newNodeData: MapNode;
+	async Prepare() {
+		let {mapID, nodeID, multiPremiseArgument} = this.payload;
+		this.oldNodeData = await GetDataAsync({addHelpers: false}, "nodes", nodeID) as MapNode;
+		this.newNodeData = {...this.oldNodeData, ...{multiPremiseArgument}};
+	}
+	async Validate() {
+		AssertValidate("MapNode", this.newNodeData, `New node-data invalid`);
+	}
+	
 	GetDBUpdates() {
-		const { nodeID } = this.payload;
-		const updates = {};
+		let {nodeID} = this.payload;
+		let updates = {};
 		updates[`nodes/${nodeID}`] = this.newNodeData;
 		return updates;
 	}

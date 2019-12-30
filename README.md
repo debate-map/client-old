@@ -17,7 +17,7 @@ Its primary improvements are (in short):
 The below is a screenshot from one of the debates:
 ![See the task list at https://trello.com/b/7ZhagPiN](/Info/Images/Screenshot2.png)
 
-The maps are constructed from ìthesesî (blue) which make claims, and ìargumentsî (green and red) which support/oppose those claims. This structure cuts down on reading time, and lets us focus on the underlying chains of reasoning instead of parsing statement meanings and connections.
+The maps are constructed from ‚Äútheses‚Äù (blue) which make claims, and ‚Äúarguments‚Äù (green and red) which support/oppose those claims. This structure cuts down on reading time, and lets us focus on the underlying chains of reasoning instead of parsing statement meanings and connections.
 
 For more information, visit the website at: <https://debatemap.live>
 

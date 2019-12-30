@@ -1,49 +1,34 @@
-import { AddSchema } from 'vwebapp-framework';
+import {GetValues_ForSchema} from "../../../Frame/General/Enums";
 
 export class TimelineStep {
 	constructor(initialData: Partial<TimelineStep>) {
-		this.VSet(initialData);
+		this.Extend(initialData);
 	}
 
-	_key: string;
-	timelineID: string;
+	_id: number;
+	timelineID: number;
 	title: string;
-	groupID: number;
-	// if timeline has video
-	videoTime: number;
-
 	message: string;
-
 	nodeReveals: NodeReveal[];
 }
-AddSchema('TimelineStep', {
+AddSchema({
 	properties: {
-		timelineID: { type: 'string' },
-		title: { type: 'string' },
-		groupID: { type: ['number', 'null'] },
-		videoTime: { type: ['number', 'null'] },
-
-		message: { type: 'string' },
-
-		nodeReveals: { $ref: 'NodeReveal' },
+		timelineID: {type: "number"},
+		title: {type: "string"},
+		message: {type: "string"},
+		nodeReveals: {$ref: "NodeReveal"},
 	},
-	required: ['timelineID'],
-});
+	required: ["timelineID"],
+}, "TimelineStep");
 
 export class NodeReveal {
 	path: string;
-
-	show: boolean;
-	show_revealDepth: number;
-	hide: boolean;
+	revealDepth: number;
 }
-AddSchema('NodeReveal', {
+AddSchema({
 	properties: {
-		path: { type: 'string' },
-
-		show: { type: 'boolean' },
-		show_revealDepth: { type: 'number' },
-		hide: { type: 'boolean' },
+		path: {type: "string"},
+		revealDepth: {type: "number"},
 	},
-	required: ['path'],
-});
+	required: ["path", "revealDepth"],
+}, "NodeReveal");

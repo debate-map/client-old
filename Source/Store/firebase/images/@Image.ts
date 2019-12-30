@@ -1,12 +1,11 @@
-import { SourceChain, Source } from 'Store/firebase/contentNodes/@SourceChain';
-import { GetValues_ForSchema } from 'js-vextensions';
-import { AddSchema } from 'vwebapp-framework';
+import {GetValues_ForSchema} from "../../../Frame/General/Enums";
+import {SourceChain, Source} from "Store/firebase/contentNodes/@SourceChain";
 
 export enum ImageType {
 	Photo = 10,
 	Illustration = 20,
 }
-AddSchema('ImageType', { oneOf: GetValues_ForSchema(ImageType) });
+AddSchema({oneOf: GetValues_ForSchema(ImageType)}, "ImageType");
 
 export function GetNiceNameForImageType(type: ImageType) {
 	return ImageType[type].toLowerCase();
@@ -14,18 +13,16 @@ export function GetNiceNameForImageType(type: ImageType) {
 
 export class Image {
 	constructor(initialData: {name: string, type: ImageType, creator: string} & Partial<Image>) {
-		this.sourceChains = [
-			{ sources: [new Source()] },
-		];
-		this.VSet(initialData);
-		// this.createdAt = Date.now();
+		this.sourceChains = [[new Source()]];
+		this.Extend(initialData);
+		//this.createdAt = Date.now();
 	}
 
-	_key: string;
-
+	_id: number;
+	
 	name: string;
 	type: ImageType;
-	url = '';
+	url = "";
 	description: string;
 	previewWidth: number;
 
@@ -34,21 +31,20 @@ export class Image {
 	creator: string;
 	createdAt: number;
 }
-export const Image_namePattern = '^[a-zA-Z0-9 ,\'"%\\-()\\/]+$';
-export const Image_urlPattern = '^https?://[^\\s/$.?#]+\\.[^\\s]+\\.(jpg|jpeg|gif|png)$';
-AddSchema('Image', {
+export const Image_namePattern = `^[a-zA-Z0-9 ,'"%\\-()\\/]+$`;
+export const Image_urlPattern = `^https?://[^\\s/$.?#]+\\.[^\\s]+\.(jpg|jpeg|gif|png)$`;
+AddSchema({
 	properties: {
-		name: { type: 'string', pattern: Image_namePattern },
-		type: { $ref: 'ImageType' },
-		// url: { pattern: Image_urlPattern },
-		url: { type: 'string' }, // allow overriding url pattern; it just highlights possible mistakes
-		description: { type: 'string' },
-		previewWidth: { type: ['number', 'null'] },
+		name: {type: "string", pattern: Image_namePattern},
+		type: {$ref: "ImageType"},
+		url: {type: "string"},
+		description: {type: "string"},
+		previewWidth: {type: ["null", "number"]},
 
-		sourceChains: { items: { $ref: 'SourceChain' } },
+		sourceChains: {items: {$ref: "SourceChain"}},
 
-		creator: { type: 'string' },
-		createdAt: { type: 'number' },
+		creator: {type: "string"},
+		createdAt: {type: "number"},
 	},
-	required: ['name', 'type', 'url', 'description', 'sourceChains', 'creator', 'createdAt'],
-});
+	required: ["name", "type", "url", "description", "sourceChains", "creator", "createdAt"],
+}, "Image");

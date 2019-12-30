@@ -1,8 +1,6 @@
-import { AddSchema } from 'vwebapp-framework';
-
-export class UserExtraInfo {
+export default class UserExtraInfo {
 	constructor(initialData: Partial<UserExtraInfo>) {
-		this.VSet(initialData);
+		this.Extend(initialData);
 	}
 	joinDate: number;
 	permissionGroups: PermissionGroupSet;
@@ -10,27 +8,29 @@ export class UserExtraInfo {
 	edits: number;
 	lastEditAt: number;
 }
-AddSchema('UserExtraInfo', {
+AddSchema({
 	properties: {
-		joinDate: { type: 'number' },
-		permissionGroups: { $ref: 'PermissionGroupSet' },
-
-		edits: { type: 'number' },
-		lastEditAt: { type: 'number' },
+		edits: {type: "number"},
+		lastEditAt: {type: "number"},
 	},
-});
+}, "UserExtraInfo");
 
 export class PermissionGroupSet {
 	basic: boolean;
-	verified: boolean; // todo: probably remove
+	verified: boolean;
 	mod: boolean;
 	admin: boolean;
 }
-AddSchema('PermissionGroupSet', {
-	properties: {
-		basic: { type: 'boolean' },
-		verified: { type: 'boolean' },
-		mod: { type: 'boolean' },
-		admin: { type: 'boolean' },
-	},
-});
+
+export function CanGetBasicPermissions(permissions: PermissionGroupSet) {
+	return permissions == null || permissions.basic; // if anon/not-logged-in, assume user can get basic permissions once logged in
+}
+export function HasBasicPermissions(permissions: PermissionGroupSet) {
+	return permissions && permissions.basic;
+}
+export function HasModPermissions(permissions: PermissionGroupSet) {
+	return permissions && permissions.mod;
+}
+export function HasAdminPermissions(permissions: PermissionGroupSet) {
+	return permissions && permissions.admin;
+}

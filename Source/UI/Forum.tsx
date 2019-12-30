@@ -1,11 +1,13 @@
-// import { ForumUI as ForumUI_Base } from 'firebase-forum';
-import { BaseComponent } from 'react-vextensions';
+import {ForumUI as ForumUI_Base} from "firebase-forum";
+import {Connect} from "Frame/Database/FirebaseConnect";
+import {BaseComponent} from "react-vextensions";
 
-export class ForumUI extends BaseComponent<{}, {}> {
+@Connect(state=> ({
+}))
+export default class ForumUI extends BaseComponent<{}, {}> {
 	render() {
-		/* return (
+		return (
 			<ForumUI_Base/>
-		); */
-		return null;
+		);
 	}
 }

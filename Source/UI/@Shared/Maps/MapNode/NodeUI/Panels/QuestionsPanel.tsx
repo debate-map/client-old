@@ -1,7 +1,7 @@
 import {Div, Column} from "react-vcomponents";
 import {BaseComponent} from "react-vextensions";
 
-export class QuestionsPanel extends BaseComponent<{}, {}> {
+export default class QuestionsPanel extends BaseComponent<{}, {}> {
 	render() {
 		return (
 			<Column style={{position: "relative"}}>

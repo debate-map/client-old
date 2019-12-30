@@ -1,20 +1,20 @@
-import { CachedTransform, IsNaN } from 'js-vextensions';
-import {GetDoc} from 'mobx-firelink';
-import { Term } from './terms/@Term';
-import { TermComponent } from './termComponents/@TermComponent';
+import {GetData, GetDataAsync} from "../../Frame/Database/DatabaseHelpers";
+import {Term} from "./terms/@Term";
+import {CachedTransform} from "js-vextensions";
+import TermComponent from "./termComponents/@TermComponent";
 
-export function GetTermComponent(id: string) {
+export function GetTermComponent(id: number) {
 	if (id == null || IsNaN(id)) return null;
-	return GetDoc({}, (a) => a.termComponents.get(id));
+	return GetData("termComponents", id) as TermComponent;
 }
-/* export async function GetTermComponentAsync(id: string) {
-	return await GetDataAsync('termComponents', id) as TermComponent;
-} */
+export async function GetTermComponentAsync(id: number) {
+	return await GetDataAsync("termComponents", id) as TermComponent;
+}
 
 export function GetTermComponents(term: Term) {
-	const components = (term.components || {}).VKeys(true).map((id) => GetTermComponent(id));
-	return CachedTransform('GetTermComponents', [term._key], components, () => components);
+	let components = (term.components || {}).VKeys(true).map(id=>GetTermComponent(parseInt(id)));
+	return CachedTransform("GetTermComponents", [term._id], components, ()=>components);
 }
-/* export async function GetTermComponentsAsync(term: Term) {
-	return await Promise.all(term.components.VKeys(true).map((id) => GetDataAsync('termComponents', id))) as TermComponent[];
-} */
+export async function GetTermComponentsAsync(term: Term) {
+	return await Promise.all(term.components.VKeys(true).map(id=>GetDataAsync("termComponents", id))) as TermComponent[];
+}
