@@ -88,7 +88,7 @@ export class NavBar extends BaseComponentPlus({} as {}, {}) {
 						<NavBarPageButton page="feedback" text="Feedback"/>
 						{/* <NavBarButton page="forum" text="Forum"/> */}
 						<NavBarPageButton page="more" text="More"/>
-						<NavBarPageButton page="home" text="Canonical Debate" style={{ margin: '0 auto', textAlign: 'center', fontSize: 23 }}/>
+						<NavBarPageButton page="home" text="Debate Map" style={{ margin: '0 auto', textAlign: 'center', fontSize: 23 }}/>
 						<NavBarPageButton page="private" text="Private"/>
 						<NavBarPageButton page="public" text="Public"/>
 						<NavBarPageButton page="global" text="Global"/>

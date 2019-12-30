@@ -1,11 +1,11 @@
 {
-  "name": "canonical-debate",
+  "name": "@debate-map/client",
   "description": "TODO",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/canonical-debate-lab/client.git"
+    "url": "git+https://github.com/debate-map/client.git"
   },
   "scripts": {
     "clean": "shx rm -rf Dist",
