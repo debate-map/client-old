@@ -1,6 +1,13 @@
 # Debate Map Client
 
-The official client website for the Debate Map project.
+The [Debate Map](https://debatemap.app) project is a web platform aimed at improving the efficiency of discussion and debate. It's crowd-sourced and open-source, and welcomes reader contributions.
+
+Its primary improvements are (in short):
+* Restructuring dialogue to make use of both dimensions.
+* Breaking down lines of reasoning into single-sentence "nodes".
+* Providing rich tools that operate on those nodes -- such as rating, tagging, statistical analysis, and belief-tree sharing and comparison.
+
+The maps are constructed from "theses" (blue) which make claims, and "arguments" (green and red) which support/oppose those claims. This structure cuts down on reading time, and lets us focus on the underlying chains of reasoning instead of parsing statement meanings and connections.
 
 For more information, visit the website at: <https://debatemap.app>
 
