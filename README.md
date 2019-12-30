@@ -1,4 +1,4 @@
-# Debate Map Client
+# Debate Map (Client)
 
 The [Debate Map](https://debatemap.app) project is a web platform aimed at improving the efficiency of discussion and debate. It's crowd-sourced and open-source, and welcomes reader contributions.
 
