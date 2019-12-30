@@ -1,13 +1,8 @@
-// /// <reference path="../node_modules/js-vextensions/Source/ClassExtensions/@ApplyTypes.d.ts"/>
-
 // "static" imports
+//type __ = typeof import("js-vextensions/Helpers/@ApplyCETypes");
 import './Utils/PreRunners/Start_0';
 import 'babel-polyfill';
 import 'webpack-runtime-require';
-// import {Require} from "webpack-runtime-require";
-/* //import "js-vextensions/Source/ClassExtensions/@ApplyTypes";
-type __ = typeof import("../node_modules/js-vextensions/Source/ClassExtensions/@ApplyTypes");
-import "js-vextensions/Dist/ClassExtensions/@ApplyCode"; // eslint-disable-line */
 import './Utils/ClassExtensions/CE_General';
 import './Utils/PreRunners/Start_1';
 import 'codemirror';
@@ -19,10 +14,6 @@ import 'mobx-firelink';
 import ReactDOM from 'react-dom';
 // import Promise from "bluebird";
 import { VURL } from 'js-vextensions';
-
-/* //import "js-vextensions/Source/ClassExtensions/@ApplyTypes";
-type __ = typeof import("../node_modules/js-vextensions/Helpers/@ApplyCETypes");
-import "js-vextensions/Helpers/@ApplyCECode"; // eslint-disable-line */
 
 // startup (non-hot)
 // ==========
