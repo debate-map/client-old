@@ -1,12 +1,12 @@
-# Canonical Debate Client
+# Debate Map Client
 
-The official client website for the Canonical Debate project.
+The official client website for the Debate Map project.
 
-For more information, visit the website at: <https://canonicaldebate.com>
+For more information, visit the website at: <https://debatemap.app>
 
 ### Workspace setup
 
-1) Clone the repo to disk: <https://github.com/canonical-debate-lab/client.git>
+1) Clone the repo to disk: <https://github.com/debate-map/client.git>
 2) Run `npm install` in the project's root folder.
 
 For recommended setup of your code editor and other tools, see: [Editor setup](#editor-setup)
@@ -41,10 +41,6 @@ Editor: [Visual Studio Code](https://code.visualstudio.com)
 VSCode extensions:
 * [Search node_modules](https://marketplace.visualstudio.com/items?itemName=jasonnutter.search-node-modules): Very helpful for quickly opening files in modules under `node_modules`.
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint): Shows warnings when code does not match the project's coding style.
-
-### Troubleshooting
-
-* If you get an odd compile error or the CSS does not seem to be loading for the site (when recompiling), try deleting the cache at "node_modules/.cache/hard-source".
 
 ### Other documentation
 
