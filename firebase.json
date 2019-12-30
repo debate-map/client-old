@@ -1,0 +1,19 @@
+{
+	"database": {
+		"rules": "Firebase/DatabaseRules.json"
+	},
+	"hosting": {
+		"public": "Dist",
+		"ignore": [
+			"**/#*",
+			"**/*-autosave.kra",
+			"**/*.kra~"
+		],
+		"rewrites": [
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		]
+	}
+}
