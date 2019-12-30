@@ -1,0 +1,7 @@
+Some changes were made locally to the dist/app.js file (since compiling is broken, from not having uploading versions of the npm package as I was developing them).
+
+Thus, they are shown below:
+==========
+Search for text of home page, then insert the following to the start of the "pageText" var-string:
+"\n> Important note: This project is now superseded by: [debatemap.app](https://debatemap.app) ([GitHub](https://github.com/debate-map/client))\n>\n> This domain is kept online for now, since it still has content that needs transferring. (and some links need updating)\n\n"
+==========
